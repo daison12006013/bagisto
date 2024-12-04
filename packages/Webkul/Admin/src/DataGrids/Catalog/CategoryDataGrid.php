@@ -36,7 +36,13 @@ class CategoryDataGrid extends DataGrid
             })
             ->leftJoin('product_categories', 'categories.id', '=', 'product_categories.category_id')
             ->where('category_translations.locale', app()->getLocale())
-            ->groupBy('categories.id');
+            ->groupBy(
+                'categories.id',
+                'category_translations.name',
+                'categories.position',
+                'categories.status',
+                'category_translations.locale',
+            );
 
         $this->addFilter('category_id', 'categories.id');
 

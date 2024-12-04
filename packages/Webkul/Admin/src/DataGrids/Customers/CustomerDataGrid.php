@@ -53,7 +53,16 @@ class CustomerDataGrid extends DataGrid
             ->addSelect(DB::raw('COUNT(DISTINCT '.$tablePrefix.'addresses.id) as address_count'))
             ->addSelect(DB::raw('COUNT(DISTINCT '.$tablePrefix.'orders.id) as order_count'))
             ->addSelect(DB::raw('CONCAT('.$tablePrefix.'customers.first_name, \' \', '.$tablePrefix.'customers.last_name) as full_name'))
-            ->groupBy('customers.id');
+            ->groupBy(
+                'customers.id',
+                'customers.email',
+                'customers.phone',
+                'customers.gender',
+                'customers.status',
+                'customers.is_suspended',
+                'customer_groups.name',
+                'customers.channel_id',
+            );
 
         $this->addFilter('channel_id', 'customers.channel_id');
         $this->addFilter('customer_id', 'customers.id');

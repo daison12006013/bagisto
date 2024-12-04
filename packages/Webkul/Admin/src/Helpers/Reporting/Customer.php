@@ -163,6 +163,8 @@ class Customer extends AbstractReporting
             ->whereIn('channel_id', $this->channelIds)
             ->whereBetween('created_at', [$this->startDate, $this->endDate])
             ->groupBy(DB::raw('CONCAT(customer_email, \'-\', customer_id)'))
+            ->groupBy('orders.customer_first_name')
+            ->groupBy('orders.customer_last_name')
             ->orderByDesc('orders')
             ->limit($limit)
             ->get();
@@ -193,6 +195,10 @@ class Customer extends AbstractReporting
             ->where('product_reviews.status', 'approved')
             ->whereNotNull('customer_id')
             ->groupBy(DB::raw('CONCAT(email, \'-\', '.$tablePrefix.'customers.id)'))
+            ->groupBy('customers.id')
+            ->groupBy('customers.email')
+            ->groupBy('customers.first_name')
+            ->groupBy('customers.last_name')
             ->orderByDesc('reviews')
             ->limit($limit)
             ->get();

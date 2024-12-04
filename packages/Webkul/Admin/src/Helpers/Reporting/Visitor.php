@@ -167,6 +167,7 @@ class Visitor extends AbstractReporting
             ->whereIn('channel_id', $this->channelIds)
             ->whereBetween('created_at', [$this->startDate, $this->endDate])
             ->groupBy('visitable_id')
+            ->groupBy('visits.id')
             ->orderByDesc('visits')
             ->limit($limit)
             ->get();

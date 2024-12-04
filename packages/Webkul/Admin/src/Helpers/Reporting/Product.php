@@ -233,12 +233,15 @@ class Product extends AbstractReporting
             ->resetModel()
             ->with(['product', 'product.attribute_family', 'product.attribute_values', 'product.images'])
             ->leftJoin('orders', 'order_items.order_id', '=', 'orders.id')
-            ->addSelect('*', DB::raw('SUM(qty_invoiced - qty_refunded) as total_qty_ordered'))
+            ->addSelect('order_items.*', DB::raw('SUM(qty_invoiced - qty_refunded) as total_qty_ordered'))
             ->whereNull('parent_id')
             ->whereIn('channel_id', $this->channelIds)
             ->whereBetween('order_items.created_at', [$this->startDate, $this->endDate])
             ->having(DB::raw('SUM(qty_invoiced - qty_refunded)'), '>', 0)
-            ->groupBy('product_id')
+            ->groupBy(
+                'order_items.product_id',
+                'order_items.id',
+            )
             ->orderBy('total_qty_ordered', 'DESC')
             ->limit($limit)
             ->get();
