@@ -20,7 +20,13 @@ return new class extends Migration
             $table->string('logo_path')->after('direction')->nullable();
         });
 
-        DB::table('locales')->whereNull('logo_path')->update(['logo_path'=> DB::raw('CONCAT("locales/", code, ".png")')]);
+        $driver = DB::getDriverName();
+
+        if ($driver === 'mysql') {
+            DB::table('locales')->whereNull('logo_path')->update(['logo_path' => DB::raw('CONCAT("locales/", code, ".png")')]);
+        } elseif ($driver === 'pgsql') {
+            DB::table('locales')->whereNull('logo_path')->update(['logo_path' => DB::raw('\'locales/\' || code || \'.png\'')]);
+        }
     }
 
     /**

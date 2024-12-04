@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('order_items', function (Blueprint $table) {
             $table->integer('tax_category_id')->unsigned()->nullable()->after('order_id');
 
-            $table->foreign('tax_category_id')->references('id')->on('tax_categories');
+            // $table->foreign('tax_category_id')->references('id')->on('tax_categories');
         });
     }
 
@@ -24,7 +24,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('order_items', function (Blueprint $table) {
-            $table->dropForeign(['tax_category_id']);
+            // $table->dropForeign(['tax_category_id']);
 
             $table->dropColumn('tax_category_id');
         });

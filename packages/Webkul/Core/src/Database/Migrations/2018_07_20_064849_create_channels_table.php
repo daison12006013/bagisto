@@ -29,9 +29,9 @@ return new class extends Migration
             $table->integer('base_currency_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('root_category_id')->references('id')->on('categories')->onDelete('set null');
-            $table->foreign('default_locale_id')->references('id')->on('locales');
-            $table->foreign('base_currency_id')->references('id')->on('currencies');
+            // $table->foreign('root_category_id')->references('id')->on('categories')->onDelete('set null');
+            // $table->foreign('default_locale_id')->references('id')->on('locales');
+            // $table->foreign('base_currency_id')->references('id')->on('currencies');
         });
 
         Schema::create('channel_locales', function (Blueprint $table) {
@@ -39,8 +39,8 @@ return new class extends Migration
             $table->integer('locale_id')->unsigned();
 
             $table->primary(['channel_id', 'locale_id']);
-            $table->foreign('channel_id')->references('id')->on('channels')->onDelete('cascade');
-            $table->foreign('locale_id')->references('id')->on('locales')->onDelete('cascade');
+            // $table->foreign('channel_id')->references('id')->on('channels')->onDelete('cascade');
+            // $table->foreign('locale_id')->references('id')->on('locales')->onDelete('cascade');
         });
 
         Schema::create('channel_currencies', function (Blueprint $table) {
@@ -48,8 +48,8 @@ return new class extends Migration
             $table->integer('currency_id')->unsigned();
 
             $table->primary(['channel_id', 'currency_id']);
-            $table->foreign('channel_id')->references('id')->on('channels')->onDelete('cascade');
-            $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('cascade');
+            // $table->foreign('channel_id')->references('id')->on('channels')->onDelete('cascade');
+            // $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('cascade');
         });
     }
 

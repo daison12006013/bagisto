@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('visits', function (Blueprint $table) {
             $table->integer('channel_id')->unsigned()->nullable()->after('visitor_id');
 
-            $table->foreign('channel_id')->references('id')->on('channels')->onDelete('cascade');
+            // $table->foreign('channel_id')->references('id')->on('channels')->onDelete('cascade');
         });
 
         $firstChannelId = DB::table('channels')->value('id');
@@ -32,7 +32,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('visits', function (Blueprint $table) {
-            $table->dropForeign(['channel_id']);
+            // $table->dropForeign(['channel_id']);
             $table->dropColumn('channel_id');
         });
     }

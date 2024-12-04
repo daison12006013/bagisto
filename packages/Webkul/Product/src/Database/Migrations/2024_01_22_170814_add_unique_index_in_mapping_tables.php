@@ -52,19 +52,19 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('product_super_attributes', function (Blueprint $table) {
-            $table->dropForeign(['product_id']);
+            // $table->dropForeign(['product_id']);
 
             $table->dropUnique(['product_id', 'attribute_id']);
         });
 
         Schema::table('product_bundle_option_products', function (Blueprint $table) {
-            $table->dropForeign(['product_id']);
+            // $table->dropForeign(['product_id']);
 
             $table->dropUnique('bundle_option_products_product_id_bundle_option_id_unique');
         });
 
         Schema::table('product_bundle_option_translations', function (Blueprint $table) {
-            $table->dropForeign('product_bundle_option_translations_option_id_foreign');
+            // $table->dropForeign('product_bundle_option_translations_option_id_foreign');
 
             $table->dropUnique('bundle_option_translations_locale_label_bundle_option_id_unique');
 
@@ -72,31 +72,31 @@ return new class extends Migration
         });
 
         Schema::table('product_grouped_products', function (Blueprint $table) {
-            $table->dropForeign(['product_id']);
+            // $table->dropForeign(['product_id']);
 
             $table->dropUnique('grouped_products_product_id_associated_product_id_unique');
         });
 
         Schema::table('product_up_sells', function (Blueprint $table) {
-            $table->dropForeign(['parent_id']);
+            // $table->dropForeign(['parent_id']);
 
             $table->dropUnique(['parent_id', 'child_id']);
         });
 
         Schema::table('product_cross_sells', function (Blueprint $table) {
-            $table->dropForeign(['parent_id']);
+            // $table->dropForeign(['parent_id']);
 
             $table->dropUnique(['parent_id', 'child_id']);
         });
 
         Schema::table('product_relations', function (Blueprint $table) {
-            $table->dropForeign(['parent_id']);
+            // $table->dropForeign(['parent_id']);
 
             $table->dropUnique(['parent_id', 'child_id']);
         });
 
         Schema::table('product_categories', function (Blueprint $table) {
-            $table->dropForeign(['product_id']);
+            // $table->dropForeign(['product_id']);
 
             $table->dropUnique(['product_id', 'category_id']);
         });
