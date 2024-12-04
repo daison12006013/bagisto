@@ -243,7 +243,7 @@ class ProductRepository extends Repository
             $prefix = DB::getTablePrefix();
 
             $qb = $query->distinct()
-                ->select('products.*')
+                ->select('products.id')
                 ->leftJoin('products as variants', DB::raw('COALESCE('.$prefix.'variants.parent_id, '.$prefix.'variants.id)'), '=', 'products.id')
                 ->leftJoin('product_price_indices', function ($join) {
                     $customerGroup = $this->customerRepository->getCurrentGroup();

@@ -176,6 +176,9 @@ class Product extends AbstractReporting
             ->select('*', DB::raw('SUM(qty) as total_qty'))
             ->whereIn('channel_id', $this->channelIds)
             ->groupBy('product_inventories.product_id')
+            ->groupBy('product_inventories.id') // @pg
+            ->groupBy('product_channels.product_id') // @pg
+            ->groupBy('product_channels.channel_id') // @pg
             ->orderBy('total_qty', 'ASC')
             ->limit($limit)
             ->get();
@@ -198,6 +201,8 @@ class Product extends AbstractReporting
             ->whereBetween('order_items.created_at', [$this->startDate, $this->endDate])
             ->having(DB::raw('SUM(base_total_invoiced - base_amount_refunded)'), '>', 0)
             ->groupBy('product_id')
+            ->groupBy('order_items.id') // @pg
+            ->groupBy('orders.id') // @pg
             ->orderBy('revenue', 'DESC')
             ->limit($limit)
             ->get();

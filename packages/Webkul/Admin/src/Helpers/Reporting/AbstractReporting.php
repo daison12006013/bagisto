@@ -215,7 +215,7 @@ abstract class AbstractReporting
              * If the difference between the start and end date is less than 6 weeks
              */
             return [
-                'group_column' => 'DAYOFYEAR(created_at)',
+                'group_column' => 'EXTRACT(DOY FROM created_at)', // 'DAYOFYEAR(created_at)',
                 'intervals'    => $this->getDaysInterval($startDate, $endDate),
             ];
         } else {

@@ -89,7 +89,7 @@ class Visitor extends AbstractReporting
             return $this->visitRepository
                 ->resetModel()
                 ->where('visitable_type', $visitableType)
-                ->groupBy(DB::raw('CONCAT(ip, "-", visitor_id, "-", visitable_type)'))
+                ->groupBy(DB::raw('CONCAT(ip, \'-\', visitor_id, \'-\', visitable_type)'))
                 ->whereIn('channel_id', $this->channelIds)
                 ->whereBetween('created_at', [$startDate, $endDate])
                 ->get()
@@ -99,7 +99,8 @@ class Visitor extends AbstractReporting
         return $this->visitRepository
             ->resetModel()
             ->whereNull('visitable_id')
-            ->groupBy(DB::raw('CONCAT(ip, "-", visitor_id)'))
+            ->groupBy(DB::raw('CONCAT(ip, \'-\', visitor_id)'))
+            ->groupBy('visits.id') // @pg
             ->whereIn('channel_id', $this->channelIds)
             ->whereBetween('created_at', [$startDate, $endDate])
             ->get()
