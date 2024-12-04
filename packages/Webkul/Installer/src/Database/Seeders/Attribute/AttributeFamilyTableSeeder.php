@@ -15,7 +15,13 @@ class AttributeFamilyTableSeeder extends Seeder
      */
     public function run($parameters = [])
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        $driver = DB::getDriverName();
+
+        if ($driver === 'mysql') {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        } elseif ($driver === 'pgsql') {
+            DB::statement('SET CONSTRAINTS ALL DEFERRED;');
+        }
 
         DB::table('attribute_families')->delete();
 
@@ -31,6 +37,10 @@ class AttributeFamilyTableSeeder extends Seeder
             ],
         ]);
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        if ($driver === 'mysql') {
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        } elseif ($driver === 'pgsql') {
+            DB::statement('SET CONSTRAINTS ALL IMMEDIATE;');
+        }
     }
 }

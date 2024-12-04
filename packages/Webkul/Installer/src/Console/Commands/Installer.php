@@ -447,7 +447,7 @@ class Installer extends Command
     {
         if ($useSuggest) {
             $choice = suggest(
-                label: $question,
+                label: $question ?? '',
                 options: $choices,
                 default: env($key)
             );

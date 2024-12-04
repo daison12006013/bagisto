@@ -50,6 +50,7 @@ class CategoryTableSeeder extends Seeder
             DB::table('category_translations')->insert([
                 [
                     'name'             => trans('installer::app.seeders.category.categories.name', [], $locale),
+                    'url_path'         => '',
                     'slug'             => 'root',
                     'description'      => trans('installer::app.seeders.category.categories.description', [], $locale),
                     'meta_title'       => '',

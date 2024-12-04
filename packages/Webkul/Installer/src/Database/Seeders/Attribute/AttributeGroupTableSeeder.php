@@ -15,7 +15,13 @@ class AttributeGroupTableSeeder extends Seeder
      */
     public function run($parameters = [])
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        $driver = DB::getDriverName();
+
+        if ($driver === 'mysql') {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        } elseif ($driver === 'pgsql') {
+            DB::statement('SET CONSTRAINTS ALL DEFERRED;');
+        }
 
         DB::table('attribute_groups')->delete();
 
@@ -233,7 +239,5 @@ class AttributeGroupTableSeeder extends Seeder
                 'position'            => 1,
             ],
         ]);
-
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
     }
 }

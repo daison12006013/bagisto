@@ -15,6 +15,14 @@ class ChannelTableSeeder extends Seeder
      */
     public function run($parameters = [])
     {
+        $driver = DB::getDriverName();
+
+        if ($driver === 'mysql') {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        } elseif ($driver === 'pgsql') {
+            DB::statement('SET CONSTRAINTS ALL DEFERRED;');
+        }
+
         DB::table('channels')->delete();
 
         DB::table('channel_translations')->delete();
